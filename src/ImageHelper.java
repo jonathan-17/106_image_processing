@@ -2,13 +2,16 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.Collections;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
 
+/*
+ * create by Majaja
+ * you should not copy it directly
+ */
+
 public class ImageHelper {
-	
 	
 	public void gray(String fileName) {
 		String newFileName = "gray.jpg";
@@ -19,13 +22,11 @@ public class ImageHelper {
 			for (int i = 0; i < bufferedImage.getWidth(); i++) {
 				for (int j = 0; j < bufferedImage.getHeight(); j++) {
 					int color = bufferedImage.getRGB(i, j);
-					//System.out.println(color+"");
 					int r = (color >> 16) & 0xff;
 					int g = (color >> 8) & 0xff;
 					int b = color & 0xff;
 					
 					int gray = (int) (0.3 * r + 0.59 * g + 0.11 * b);
-					//System.out.println(i + " : " + j + " " + gray);
 					int newPixel = colorToRGB(255, gray, gray, gray);
 					grayImage.setRGB(i, j, newPixel);
 				}
@@ -34,10 +35,9 @@ public class ImageHelper {
 			ImageIO.write(grayImage, "jpg", newFile);
 			System.out.println(newFileName + "done");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			// TODO Auto-generated catch block m
 			e.printStackTrace();
 		}
-
 	}
 	public void neg(String fileName) {
 		String newFileName = "neg.jpg";
@@ -48,13 +48,9 @@ public class ImageHelper {
 			for (int i = 0; i < bufferedImage.getWidth(); i++) {
 				for (int j = 0; j < bufferedImage.getHeight(); j++) {
 					int color = bufferedImage.getRGB(i, j);
-					//System.out.println(color+"");
 					int r = (color >> 16) & 0xff;
 					int g = (color >> 8) & 0xff;
 					int b = color & 0xff;
-					
-					
-					
 					int newPixel = colorToRGB(255, 255 - r,255 - g,255 - b);
 					grayImage.setRGB(i, j, newPixel);
 				}
@@ -63,7 +59,7 @@ public class ImageHelper {
 			ImageIO.write(grayImage, "jpg", newFile);
 			System.out.println(newFileName + "done");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			// TODO Auto-generated catch block a
 			e.printStackTrace();
 		}
 
@@ -77,11 +73,9 @@ public class ImageHelper {
 			for (int i = 0; i < bufferedImage.getWidth(); i++) {
 				for (int j = 0; j < bufferedImage.getHeight(); j++) {
 					int color = bufferedImage.getRGB(i, j);
-					//System.out.println(color+"");
 					int r = (color >> 16) & 0xff;
 					int g = (color >> 8) & 0xff;
 					int b = color & 0xff;
-					
 					float f_r = r/255f;
 					float f_g = g/255f;
 					float f_b = b/255f;
@@ -93,7 +87,7 @@ public class ImageHelper {
 			ImageIO.write(grayImage, "jpg", newFile);
 			System.out.println(newFileName + " done");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			// TODO Auto-generated catch block j
 			e.printStackTrace();
 		}
 
@@ -104,12 +98,10 @@ public class ImageHelper {
 		float count = 1.000f;
 		float arr[] = {0.0000f,0.0000f,0.0000f};
 		try {
-	
 			bufferedImage = ImageIO.read(new File(fileName));
 			for (int i = 0; i < bufferedImage.getWidth(); i++) {
 				for (int j = 0; j < bufferedImage.getHeight(); j++) {
 					int color = bufferedImage.getRGB(i, j);
-					//System.out.println(color+"");
 					int r = (color >> 16) & 0xff;
 					int g = (color >> 8) & 0xff;
 					int b = color & 0xff;
@@ -128,11 +120,9 @@ public class ImageHelper {
 			for (int i = 0; i < bufferedImage.getWidth(); i++) {
 				for (int j = 0; j < bufferedImage.getHeight(); j++) {
 					int color = bufferedImage.getRGB(i, j);
-					//System.out.println(color+"");
 					int r = (color >> 16) & 0xff;
 					int g = (color >> 8) & 0xff;
 					int b = color & 0xff;
-					//System.out.println("R" + r +",  " + roundding(forAve(arr[0],count)));
 					int newPixel = colorToRGB(255, forBinary(r,roundding(arr[0]*255)), forBinary(g,roundding(arr[1]*255)), forBinary(b,roundding(arr[2]*255)));
 					grayImage.setRGB(i, j, newPixel);
 				}
@@ -141,7 +131,7 @@ public class ImageHelper {
 			ImageIO.write(grayImage, "jpg", newFile);
 			System.out.println(newFileName + " done");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			// TODO Auto-generated catch block a
 			e.printStackTrace();
 		}
 
@@ -156,12 +146,10 @@ public class ImageHelper {
 			for (int i = 0; i < bufferedImage.getWidth(); i++) {
 				for (int j = 0; j < bufferedImage.getHeight(); j++) {
 					int color = bufferedImage.getRGB(i, j);
-					//System.out.println(color+"");
 					int r = (color >> 16) & 0xff;
 					int g = (color >> 8) & 0xff;
 					int b = color & 0xff;
-					
-					
+	
 					if( rand.nextFloat() > rate){
 						if(rand.nextFloat() > 0.5f){
 							int newPixel = colorToRGB(255, 255, 255, 255);
@@ -180,7 +168,7 @@ public class ImageHelper {
 			ImageIO.write(grayImage, "jpg", newFile);
 			System.out.println(newFileName + "done");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			// TODO Auto-generated catch block j
 			e.printStackTrace();
 		}
 
@@ -203,7 +191,6 @@ public class ImageHelper {
 					int b_arr[] = new int[9];
 					
 					int index = 0;
-					
 					for (int k = -1 ; k <= start; k++){
 						for (int l = -1 ; l <= start ; l++){
 							int color = bufferedImage.getRGB(i+l, j+k);
@@ -214,7 +201,6 @@ public class ImageHelper {
 							index++;
 						}
 					}
-
 					
 					int r = 0;
 					int g = 0;
@@ -230,8 +216,6 @@ public class ImageHelper {
 						g = returnMax(g_arr);
 						b = returnMax(b_arr);
 					}					
-					
-					//System.out.println(r_mid);
 					int newPixel = colorToRGB(255, r, g, b);
 					newImage.setRGB(i, j, newPixel);
 				}
@@ -240,7 +224,7 @@ public class ImageHelper {
 			ImageIO.write(newImage, "jpg", newFile);
 			System.out.println(newFileName + "done");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			// TODO Auto-generated catch block a
 			e.printStackTrace();
 		}		
 		
@@ -261,12 +245,9 @@ public class ImageHelper {
 			for (int i = 0; i < bufferedImage.getWidth(); i++) {
 				for (int j = 0; j < bufferedImage.getHeight(); j++) {
 					int color = bufferedImage.getRGB(i, j);
-					//System.out.println(color+"");
 					int r = (color >> 16) & 0xff;
 					int g = (color >> 8) & 0xff;
 					int b = color & 0xff;
-					
-					
 					
 					r = roundding(((r-r_min) / r_ratio)*255);
 					g = roundding(((g-g_min) / g_ratio)*255);
@@ -281,7 +262,7 @@ public class ImageHelper {
 			ImageIO.write(newImage, "jpg", newFile);
 			System.out.println(newFileName + " done");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			// TODO Auto-generated catch block m
 			e.printStackTrace();
 		}
 
@@ -322,12 +303,10 @@ public class ImageHelper {
 					int g_bot = (color >> 8) & 0xff;
 					int b_bot = color & 0xff;
 					
-					
 					int r_new = Math.abs( 4*r_top - r_top - r_left - r_right - r_bot);
 					int g_new = Math.abs( 4*g_top - g_top - g_left - g_right - g_bot);
 					int b_new = Math.abs( 4*b_top - b_top - b_left - b_right - b_bot);
 					
-					//System.out.println(r_mid);
 					int newPixel = colorToRGB(255, r_new, g_new, b_new);
 					newImage.setRGB(i, j, newPixel);
 				}
@@ -336,7 +315,7 @@ public class ImageHelper {
 			ImageIO.write(newImage, "jpg", newFile);
 			System.out.println(newFileName + "done");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			// TODO Auto-generated catch block j
 			e.printStackTrace();
 		}		
 		
@@ -429,7 +408,7 @@ public class ImageHelper {
 				}
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			// TODO Auto-generated catch block c
 			e.printStackTrace();
 		}
 		int arr[] = {r_max,g_max,b_max,r_min,g_min,b_min};
