@@ -71,16 +71,33 @@ public class ImageHelper {
 		try {
 			bufferedImage = ImageIO.read(new File(fileName));
 			BufferedImage grayImage = new BufferedImage(bufferedImage.getWidth(), bufferedImage.getHeight(), bufferedImage.getType());	
+			
+			int[] arr = findMaxMin(fileName); 
+			int r_max = arr[0] , g_max = arr[1] , b_max = arr[2];
+			int r_min = arr[3] , g_min = arr[4] , b_min = arr[5];
+			double r_ratio = r_max-r_min, g_ratio = g_max-g_min, b_ratio = b_max-b_min;
+			
 			for (int i = 0; i < bufferedImage.getWidth(); i++) {
 				for (int j = 0; j < bufferedImage.getHeight(); j++) {
 					int color = bufferedImage.getRGB(i, j);
+					//System.out.println(color+"");
 					int r = (color >> 16) & 0xff;
 					int g = (color >> 8) & 0xff;
 					int b = color & 0xff;
+					
+					
+					r = roundding(((r-r_min) / r_ratio)*255);
+					g = roundding(((g-g_min) / g_ratio)*255);
+					b = roundding(((b-b_min) / b_ratio)*255);
 					float f_r = r/255f;
 					float f_g = g/255f;
-					float f_b = b/255f;
-					// 以灰階圖來做的話只要rgb取一個就可以做了
+					float f_b = b/255f;  //先正規化為0~1之間
+					//roundding( 四捨五入
+					//Math.pow(f_r,gamma) 取次方  
+					//*255) 乘255回來
+					
+					//((p-min / max -min) *255 )^r
+					
 					int newPixel = colorToRGB(255,roundding( Math.pow(f_r,gamma)*255),roundding(Math.pow(f_g,gamma)*255),roundding(Math.pow(f_b,gamma)*255));
 					grayImage.setRGB(i, j, newPixel);
 				}
@@ -308,9 +325,9 @@ public class ImageHelper {
 					int g_bot = (color >> 8) & 0xff;
 					int b_bot = color & 0xff;
 					
-					int r_new = Math.abs( 4*r_top - r_top - r_left - r_right - r_bot);
-					int g_new = Math.abs( 4*g_top - g_top - g_left - g_right - g_bot);
-					int b_new = Math.abs( 4*b_top - b_top - b_left - b_right - b_bot);
+					int r_new = Math.abs( 4*r - r_top - r_left - r_right - r_bot);
+					int g_new = Math.abs( 4*g - g_top - g_left - g_right - g_bot);
+					int b_new = Math.abs( 4*b - b_top - b_left - b_right - b_bot);
 					// 以灰階圖來做的話只要rgb取其中一個就可以做了
 					int newPixel = colorToRGB(255, r_new, g_new, b_new);
 					newImage.setRGB(i, j, newPixel);
