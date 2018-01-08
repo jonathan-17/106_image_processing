@@ -93,7 +93,7 @@ the issue above is from 鍾承軒 in NCHU
 
 ![position](https://imgur.com/BrphFfI.png)
 
-讀取各值之後做排序，把目前的pixel值取代成這9個裡面的中間值，可以有效去除胡椒鹽雜訊，但是還是會破壞掉圖片
+讀取各值之後做排序，把目前的pixel值取代成這排序後的中位數，可以有效去除胡椒鹽雜訊，但是還是會破壞掉圖片
 
 # Laplacian邊緣偵測
 推薦大家去看這個網站:https://goo.gl/WmWKC2
@@ -102,9 +102,11 @@ the issue above is from 鍾承軒 in NCHU
 
 ![position](https://imgur.com/BrphFfI.png) X ![Laplacian](https://imgur.com/IXHxwwZ.png)
 
+	p_new = 4*p(i,j) - p(i-1,j)  - p(i,j-1)  - p(i,j+1)  - p(i+1,j) 
+
 # 3x3最大值濾波器
 
-與3x3中值濾波器相同，只是取最大值而已
+與3x3中值濾波器相同，改為取最大值
 
 # 二值化
 
