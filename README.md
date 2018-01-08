@@ -5,6 +5,7 @@
 ![details](https://imgur.com/WPZWtvE.jpg)
 the issue above is from 鍾承軒 in NCHU
 
+# 灰階
 
 宣告函式名為gray，回傳方法為不回傳(void)，作用域為public(即為可從外部呼叫)，呼叫時需要給定一個String參數
 
@@ -60,7 +61,56 @@ the issue above is from 鍾承軒 in NCHU
 	File newFile = new File(newFileName);
 	ImageIO.write(grayImage, "jpg", newFile);
 
+完整程式碼: https://github.com/majaja98/106_image_processing/blob/master/src/ImageToGray.java
+
+# 負片
+255-減掉rgb各值即是負片效果，在這個作業因為是已經轉成灰階了，所以只要rgb其中一個值就可以做了
+
+	int newPixel = colorToRGB(255, 255 - r,255 - g,255 - b);
+	
+# Gamma <1 、 =1 、 >1
+
+	Gamma公式: ((p-min) / (max-min) )^gamma*255
+先做一次讀值，找出最大最小值之後再對原圖做計算，次方可以使用java的函式:
+	
+	Math.pow(x,y) // x的y次方
+
+# 胡椒鹽雜訊
+用隨機亂數模擬灑胡椒鹽雜訊的過程
+
+	Random rand = new Random();
+	float random_num = rand.nextFloat(); // 介於0~1之間的浮點數
+	if ( random_num > 0.95){ // 如果是完全隨機亂數的話，意義上就是整張圖只灑5%的胡椒鹽雜訊
+		if (rand.nextFloat() > 0.5) { //黑白機率各半
+			int newPixel = colorToRGB(255, 255,255,255); //灑白
+		}else{
+			int newPixel = colorToRGB(255, 0,0,0); //灑黑
+		}
+	}
+
+# 3x3中值濾波器
+假設你目前的pixel位置式(i,j)，附近的相對位置就會如下圖所示
+
+![position](https://imgur.com/BrphFfI.png)
+
+讀取各值之後做排序，把目前的pixel值取代成這9個裡面的中間值，可以有效去除胡椒鹽雜訊，但是還是會破壞掉圖片
+
+# Laplacian邊緣偵測
+推薦大家去看這個網站:https://goo.gl/WmWKC2
+，概念講得很清楚；
+要做的就是把目前(i,j)的值取代成與Laplacian邊緣偵測內積的結果
+
+![position](https://imgur.com/BrphFfI.png) X ![Laplacian](https://imgur.com/IXHxwwZ.png)
+
+# 3x3最大值濾波器
+
+與3x3中值濾波器相同，只是取最大值而已
+
+# 二值化
+
+題目要求以平均值當門檻，所以先讀完圖值後計算平均值，大於平均值的就設255，小於就設0
 
 
 
+# 圖片來源
 test picture source: http://catzgallery.blogspot.tw/2011/11/omg-wtf-catz-collection.html
