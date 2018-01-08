@@ -51,6 +51,7 @@ public class ImageHelper {
 					int r = (color >> 16) & 0xff;
 					int g = (color >> 8) & 0xff;
 					int b = color & 0xff;
+					// 以灰階圖來做的話只要rgb取一個就可以做了
 					int newPixel = colorToRGB(255, 255 - r,255 - g,255 - b);
 					grayImage.setRGB(i, j, newPixel);
 				}
@@ -79,6 +80,7 @@ public class ImageHelper {
 					float f_r = r/255f;
 					float f_g = g/255f;
 					float f_b = b/255f;
+					// 以灰階圖來做的話只要rgb取一個就可以做了
 					int newPixel = colorToRGB(255,roundding( Math.pow(f_r,gamma)*255),roundding(Math.pow(f_g,gamma)*255),roundding(Math.pow(f_b,gamma)*255));
 					grayImage.setRGB(i, j, newPixel);
 				}
@@ -116,6 +118,7 @@ public class ImageHelper {
 			arr[0] /= count;
 			arr[1] /= count;
 			arr[2] /= count;
+			// 以灰階圖來做的話只要rgb取一個就可以做了
 			BufferedImage grayImage = new BufferedImage(bufferedImage.getWidth(), bufferedImage.getHeight(), bufferedImage.getType());	
 			for (int i = 0; i < bufferedImage.getWidth(); i++) {
 				for (int j = 0; j < bufferedImage.getHeight(); j++) {
@@ -162,6 +165,7 @@ public class ImageHelper {
 						int newPixel = colorToRGB(255, r, g, b);
 						grayImage.setRGB(i, j, newPixel);
 					}
+					// 以灰階圖來做的話只要rgb取一個就可以做了
 				}
 			}
 			File newFile = new File(newFileName);
@@ -215,7 +219,8 @@ public class ImageHelper {
 						r = returnMax(r_arr);
 						g = returnMax(g_arr);
 						b = returnMax(b_arr);
-					}					
+					}		
+					// 以灰階圖來做的話只要rgb取一個就可以做了
 					int newPixel = colorToRGB(255, r, g, b);
 					newImage.setRGB(i, j, newPixel);
 				}
@@ -252,7 +257,7 @@ public class ImageHelper {
 					r = roundding(((r-r_min) / r_ratio)*255);
 					g = roundding(((g-g_min) / g_ratio)*255);
 					b = roundding(((b-b_min) / b_ratio)*255);
-					
+					// 以灰階圖來做的話只要rgb取一個就可以做了
 					int newPixel = colorToRGB(255, r, g, b);
 					newImage.setRGB(i, j, newPixel);
 				}
@@ -306,7 +311,7 @@ public class ImageHelper {
 					int r_new = Math.abs( 4*r_top - r_top - r_left - r_right - r_bot);
 					int g_new = Math.abs( 4*g_top - g_top - g_left - g_right - g_bot);
 					int b_new = Math.abs( 4*b_top - b_top - b_left - b_right - b_bot);
-					
+					// 以灰階圖來做的話只要rgb取其中一個就可以做了
 					int newPixel = colorToRGB(255, r_new, g_new, b_new);
 					newImage.setRGB(i, j, newPixel);
 				}
