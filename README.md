@@ -62,7 +62,6 @@ the issue above is from 鍾承軒 in NCHU
 	File newFile = new File(newFileName);
 	ImageIO.write(grayImage, "jpg", newFile);
 
-完整程式碼: https://github.com/majaja98/106_image_processing/blob/master/src/ImageToGray.java
 
 # 負片
 255-減掉rgb各值即是負片效果，在這個作業因為是已經轉成灰階了，所以只要rgb其中一個值就可以做了
